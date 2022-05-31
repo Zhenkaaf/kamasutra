@@ -2,7 +2,6 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import s from './Navbar.module.css';
 import Friends from './Friends/Friends';
-import StoreContext from '../../StoreContext';
 
 
 /* let s = {
@@ -17,7 +16,6 @@ import StoreContext from '../../StoreContext';
 
 
 const Navbar = (props) => {
-
 
   /*  let friends = props.fr.map((elFromFriendsData) => {
      return <Friends name={elFromFriendsData.name} id={elFromFriendsData.id} />;
@@ -47,40 +45,35 @@ const Navbar = (props) => {
    ) */
 
 
+  let friends = props.friendsData.map((elFromFriendsData) => {
+    return <Friends name={elFromFriendsData.name} key={elFromFriendsData.id} id={elFromFriendsData.id} />;
+  });
+
   return (
-    <StoreContext.Consumer>
-      {
-        (store) => {
-          let state = store.getState();
-          let friends = state.navbar.friendsData.map((elFromFriendsData) => {
-            return <Friends name={elFromFriendsData.name} id={elFromFriendsData.id} />;
-          });
-          return (
-            <nav className={s.nav}>
-              <div className={s.item}>
-                <NavLink to='/profile' className={(navData) => navData.isActive ? s.activeLink : ''}>Profile</NavLink>
-              </div>
-              <div className={s.item}>
-                <NavLink to='/dialogs' className={(navData) => navData.isActive ? s.activeLink : ''}>Dialogs</NavLink>
-              </div>
-              <div className={s.item}>
-                <NavLink to='/news' className={(navData) => navData.isActive ? s.activeLink : ''}>News</NavLink>
-              </div>
-              <div className={s.item}>
-                <NavLink to='/music' className={(navData) => navData.isActive ? s.activeLink : ''}>Music</NavLink>
-              </div>
-              <div className={s.item}>
-                <NavLink to='/settings' className={(navData) => navData.isActive ? s.activeLink : ''}>Settings</NavLink>
-              </div>
-              <div>
-                <h2>Friends</h2>
-                <div className={s.items}>{friends}</div>
-              </div>
-            </nav>
-          )
-        }
-      }
-    </StoreContext.Consumer>
+    <nav className={s.nav}>
+      <div className={s.item}>
+        <NavLink to='/profile' className={(navData) => navData.isActive ? s.activeLink : ''}>Profile</NavLink>
+      </div>
+      <div className={s.item}>
+        <NavLink to='/dialogs' className={(navData) => navData.isActive ? s.activeLink : ''}>Dialogs</NavLink>
+      </div>
+      <div className={s.item}>
+        <NavLink to='/news' className={(navData) => navData.isActive ? s.activeLink : ''}>News</NavLink>
+      </div>
+      <div className={s.item}>
+        <NavLink to='/music' className={(navData) => navData.isActive ? s.activeLink : ''}>Music</NavLink>
+      </div>
+      <div className={s.item}>
+        <NavLink to='/settings' className={(navData) => navData.isActive ? s.activeLink : ''}>Settings</NavLink>
+      </div>
+      <div className={s.item}>
+        <NavLink to='/users' className={(navData) => navData.isActive ? s.activeLink : ''}>Users</NavLink>
+      </div>
+      <div>
+        <h2>Friends</h2>
+        <div className={s.items}>{friends}</div>
+      </div>
+    </nav>
   )
 }
 

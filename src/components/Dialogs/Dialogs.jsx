@@ -4,13 +4,12 @@ import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
 
 const Dialogs = (props) => {
-   
     let dialogsElements = props.dialogsData.map((dialog) => {
-        return <DialogItem name={dialog.name} id={dialog.id} />;
+        return <DialogItem name={dialog.name} key={dialog.id} id={dialog.id} />;
     });
 
     let messagesElements = props.messagesData.map((elFromMessDate) => {
-        return <Message message={elFromMessDate.message} />
+        return <Message message={elFromMessDate.message} key={elFromMessDate.id} />
     });
     let textFromTexrArea = React.createRef();
 

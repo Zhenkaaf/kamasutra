@@ -4,7 +4,7 @@ import Post from './Post/Post.jsx';
 
 const MyPosts = (props) => {
   let posts = props.posts.map((elFromPostdData) => {
-    return <Post message={elFromPostdData.message} likeCounts={elFromPostdData.likes} />
+    return <Post message={elFromPostdData.message} key={elFromPostdData.id} likeCounts={elFromPostdData.likes} />
   });
 
   let onAddPost = () => {

@@ -1,12 +1,10 @@
 import React from "react";
+import { connect } from "react-redux";
 import { addDialogTextActionCreator } from "../../redux/dialogsReducer";
 import { updateDialogTextActionCreator } from "../../redux/dialogsReducer";
-import StoreContext from "../../StoreContext";
 import Dialogs from "./Dialogs";
 
-const DialogsContainer = (props) => {
-
-
+/* const DialogsContainer = (props) => {
     return (
         <StoreContext.Consumer>
             {(store) => {
@@ -28,8 +26,26 @@ const DialogsContainer = (props) => {
                 />
             }}
         </StoreContext.Consumer>
-
     )
+} */
+
+let mapStateToProps = (state) => {
+    return {
+        dialogsData: state.messagesPage.dialogsData,
+        messagesData: state.messagesPage.messagesData,
+        dialogText: state.messagesPage.dialogText
+    }
 }
+let mapDispatchToProps = (dispatch) => {
+    return {
+        addDialog: () => {
+            dispatch(addDialogTextActionCreator());
+        },
+        changeDialogArea: (val) => {
+            dispatch(updateDialogTextActionCreator(val));
+        }
+    }
+}
+const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs);
 
 export default DialogsContainer;

@@ -4,28 +4,28 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
-import StoreContext from './StoreContext'
+import { Provider } from 'react-redux';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-let rerenderEntireTree = (state) => {
+/* let rerenderEntireTree = (state) => { */
   root.render(
     <React.StrictMode>
       {/* <App appState={state} addPost={store.addPost.bind(store)} updateText={store.updateText.bind(store)} updateDialogText={store.updateDialogText.bind(store)} addDialogText={store.addDialogText.bind(store)} /> */}
-      <StoreContext.Provider value={store} >
+      <Provider store={store} >
         <App /* store={store} dispatch={store.dispatch.bind(store)} */ />
-      </StoreContext.Provider>
+      </Provider>
     </React.StrictMode>
   );
-}
+/* }
 
 
-rerenderEntireTree(store.getState());
+rerenderEntireTree(store.getState()); */
 
 /* store.subscribe(rerenderEntireTree); */
-store.subscribe(() => {
+/* store.subscribe(() => {
   let state = store.getState();
   rerenderEntireTree(state);
-});
+}); */
 
 /* 1) Функция subscriber(observer) срабатывает только один раз в index.js
 2) В результате срабатывания у функции rerender, объявленной в state.js, меняется ссылка на  другой объект-функцию rerenderEntireTree, 
