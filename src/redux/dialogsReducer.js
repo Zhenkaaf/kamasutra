@@ -1,5 +1,5 @@
 const ADD_DIALOG_TEXT = 'ADD-DIALOG-TEXT';
-const UPDATE_DIALOG_TEXT = 'UPDATE-DIALOG-TEXT';
+//const UPDATE_DIALOG_TEXT = 'UPDATE-DIALOG-TEXT';
 
 let initialState = {
     messagesData: [
@@ -22,19 +22,19 @@ const dialogsReducer = (state = initialState, action) => {
         case ADD_DIALOG_TEXT: {
             let newDialog = {
                 id: 5,
-                message: state.dialogText
+                message: action.newTextMessage
             };
             let stateCopy = {...state};
             stateCopy.messagesData = [...state.messagesData];
             stateCopy.messagesData.push(newDialog);
-            stateCopy.dialogText = '';
+            //stateCopy.dialogText = '';
             return stateCopy;
           }
-        case UPDATE_DIALOG_TEXT: {
+        /* case UPDATE_DIALOG_TEXT: {
           let stateCopy = {...state};
           stateCopy.dialogText = action.newTxt;
             return stateCopy;
-          }
+          } */
         default:
             return state;
     }
@@ -51,15 +51,16 @@ const dialogsReducer = (state = initialState, action) => {
     } */
 }
 
-export const addDialogTextActionCreator = () => {
+export const addDialogTextActionCreator = (newTextMessage) => {
     return {
       type: 'ADD-DIALOG-TEXT',
+      newTextMessage: newTextMessage
     };
   }
-  export const updateDialogTextActionCreator = (val) => {
+  /* export const updateDialogTextActionCreator = (val) => {
     return {
       type: 'UPDATE-DIALOG-TEXT',
       newTxt: val,
     };
-  }
+  } */
 export default dialogsReducer;

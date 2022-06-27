@@ -4,3 +4,6 @@
 .posts {
     margin-top: 10px;
 }
+.bgTestError {
+    background-color: red;
+}

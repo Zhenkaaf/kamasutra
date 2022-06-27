@@ -1,5 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
+import { compose } from "redux";
+import { withAuthRedirect } from "../../hoc/withAuthRedirect";
 import { addDialogTextActionCreator } from "../../redux/dialogsReducer";
 import { updateDialogTextActionCreator } from "../../redux/dialogsReducer";
 import Dialogs from "./Dialogs";
@@ -38,14 +40,29 @@ let mapStateToProps = (state) => {
 }
 let mapDispatchToProps = (dispatch) => {
     return {
-        addDialog: () => {
-            dispatch(addDialogTextActionCreator());
-        },
-        changeDialogArea: (val) => {
-            dispatch(updateDialogTextActionCreator(val));
+        addDialog: (val) => {
+            dispatch(addDialogTextActionCreator(val));
         }
+        /* changeDialogArea: (val) => {
+            dispatch(updateDialogTextActionCreator(val));
+        } */
     }
 }
-const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs);
+
+
+/* let AuthRedirectComponent = (props) => {
+    if (!this.props.isAuth) {
+        return <Navigate to={'/login'} /> 
+    }
+    return <Dialogs {...props} />
+} */
+
+
+/* let AuthRedirectComponent = withAuthRedirect(Dialogs);
+const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(AuthRedirectComponent); */
+const DialogsContainer = compose(
+    connect(mapStateToProps, mapDispatchToProps),
+    withAuthRedirect
+)(Dialogs);
 
 export default DialogsContainer;
