@@ -5,7 +5,8 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { Textarea } from '../../common/FormsControls/FormsControls';
 import { maxLengthCreator } from '../../../utils/validators/validators';
 
-const MyPosts = (props) => {
+const MyPosts = React.memo((props) => {
+  console.log('render');
   let posts = props.posts.map((elFromPostdData) => {
     return <Post message={elFromPostdData.message} key={elFromPostdData.id} likeCounts={elFromPostdData.likes} />
   });
@@ -18,7 +19,7 @@ const MyPosts = (props) => {
     //props.dispatch(addPostActionCreator());
     //props.dispatch({type: 'ADD-POST'});
     //props.updateText('');
-  }
+}
   /* 
  let onPostChange = () => {
    let val = newPostElem.current.value;
@@ -44,7 +45,7 @@ const MyPosts = (props) => {
       </div>
     </div>
   )
-}
+});
 
 
 

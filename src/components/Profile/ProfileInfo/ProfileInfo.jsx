@@ -2,6 +2,7 @@ import React from 'react';
 import Preloader from '../../common/Preloader/Preloader';
 import s from './ProfileInfo.module.css';
 import ProfileStatus from './ProfileStatus';
+import ProfileStatusWithHooks from './ProfileStatusWithHooks';
 
 const ProfileInfo = (props) => {
   let noAvatar = 'https://www.meme-arsenal.com/memes/7a74b40725214bea55ed26ef5d72b721.jpg';
@@ -20,7 +21,7 @@ const ProfileInfo = (props) => {
       <div className={s.description}>
         <img src={props.profile.photos.large != null ? props.profile.photos.large : noAvatar} />
       </div>
-      <ProfileStatus status={props.status} updateStatus={props.updateStatus} />
+      <ProfileStatusWithHooks status={props.status} updateStatus={props.updateStatus} />
       <div>{props.profile.fullName}</div>
     </div>
   )
