@@ -5,6 +5,7 @@ const ADD_POST = 'ADD-POST';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
 const SET_STATUS = 'SET_STATUS';
 const DELETE_POST = 'DELETE_POST';
+const SAVE_PHOTO_SUCCESS = 'SAVE_PHOTO_SUCCESS';
 
 let initialState = {
   postsData: [
@@ -41,15 +42,15 @@ const profileReducer = (state = initialState, action) => {
       //state.newPostText = '';   у stata не имеем права ничего менять
       //return state;
     }
-   /*  case UPDATE_NEW_POST_TEXT: {
-      let stateCopy = {...state};
-      stateCopy.newPostText = action.newText;
-      return stateCopy;
-      return { //сразу создали объект, скопировали стэйт 
-        ...state,
-        newPostText: action.newText
-      };
-    } */
+    /*  case UPDATE_NEW_POST_TEXT: {
+       let stateCopy = {...state};
+       stateCopy.newPostText = action.newText;
+       return stateCopy;
+       return { //сразу создали объект, скопировали стэйт 
+         ...state,
+         newPostText: action.newText
+       };
+     } */
     case SET_USER_PROFILE: {
       return { ...state, profile: action.profile }
     }
@@ -58,6 +59,9 @@ const profileReducer = (state = initialState, action) => {
     }
     case DELETE_POST: {
       return { ...state, postsData: state.postsData.filter(post => post.id != action.postId) }
+    }
+    case SAVE_PHOTO_SUCCESS: {
+      return { ...state, profile: {...state.profile, photos: action.photos} }
     }
     default:
       return state;
@@ -108,6 +112,12 @@ export const deletePostActionCreator = (postId) => {
     postId
   };
 }
+export const savePhotoSuccessActionCreator = (photos) => {
+  return {
+    type: 'SAVE_PHOTO_SUCCESS',
+    photos
+  };
+}
 
 export const setUserProfileThunkCreator = (userId) => {
   return (dispatch) => {
@@ -126,15 +136,61 @@ export const getStatusThunkCreator = (userId) => {
   }
 }
 export const updateStatusThunkCreator = (status) => {
+
   return (dispatch) => {
     profileAPI.updateStatus(status)
       .then(response => {
+        
         if (response.data.resultCode === 0) {
           dispatch(setStatus(status));
         }
       });
   }
 }
+export const savePhotoThunkCreator = (file) => {
+  return (dispatch) => {
+    profileAPI.savePhoto(file)
+      .then(response => {
+        if (response.data.resultCode === 0) {
+          dispatch(savePhotoSuccessActionCreator(response.data.data.photos));
+        }
+      });
+  }
+}
+export const saveProfileThunkCreator = (profile) => {
+  alert('reducer');
+  console.log(profile);
+  return (dispatch, getState) => {
+    const userId = getState().auth.userId;
+    profileAPI.saveProfile(profile)
+      .then(response => {
+        alert('reducer2');
+        if (response.data.resultCode === 0) {
+          dispatch(setUserProfileThunkCreator(userId));
+        }
+        else {
+          dispatch(stopSubmit('login', {_error: response.data.messages[0]}));
+        }
+      });
+  }
+}
+
+
+/* export const savePhotoThunkCreator = (file) => {
+  return async (dispatch) => {
+    let response = await profileAPI.savePhoto(file);
+    if (response.data.resultCode === 0) {
+      dispatch(savePhotoSuccessActionCreator(response.data.photos));
+    }
+  }
+}
+export const savePhotoThunkCreator = (file) => async (dispatch) => {
+  let response = await profileAPI.savePhoto(file);
+  if (response.data.resultCode === 0) {
+    dispatch(savePhotoSuccessActionCreator(response.data.photos));
+  }
+} */
+
 
 
 

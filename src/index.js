@@ -5,17 +5,25 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import { Provider } from 'react-redux';
+import { BrowserRouter } from 'react-router-dom';
+import SamuraiJSApp from './App';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 /* let rerenderEntireTree = (state) => { */
-  root.render(
-    <React.StrictMode>
-      {/* <App appState={state} addPost={store.addPost.bind(store)} updateText={store.updateText.bind(store)} updateDialogText={store.updateDialogText.bind(store)} addDialogText={store.addDialogText.bind(store)} /> */}
-      <Provider store={store} >
-        <App /* store={store} dispatch={store.dispatch.bind(store)} */ />
-      </Provider>
-    </React.StrictMode>
+root.render(
+  <SamuraiJSApp/>
   );
+ /*  <React.StrictMode> */
+ 
+    {/* <App appState={state} addPost={store.addPost.bind(store)} updateText={store.updateText.bind(store)} updateDialogText={store.updateDialogText.bind(store)} addDialogText={store.addDialogText.bind(store)} /> */}
+    {/* <BrowserRouter>
+      <Provider store={store} >
+        <App  /> //store={store} dispatch={store.dispatch.bind(store)}
+      </Provider>
+    </BrowserRouter> */}
+{/* <SamuraiJSApp/> */}
+/*   </React.StrictMode> */
+
 /* }
 
 
